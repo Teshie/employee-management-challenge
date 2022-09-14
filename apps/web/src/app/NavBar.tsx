@@ -41,7 +41,7 @@ export default function Navigation() {
               <li className="nav-item">
                 <p className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
                   <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
-                  <Link to="/departments">
+                  <Link to="/">
                     <span className="ml-2">Department</span>
                   </Link>
                 </p>
