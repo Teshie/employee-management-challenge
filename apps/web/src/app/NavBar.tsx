@@ -11,6 +11,7 @@ export default function Navigation() {
             <img
               src="https://www.tensorsystems.net/images/tensor-systems.png"
               alt="tensor"
+              className="bg-white rounded px-4"
               width={300}
             />
             <button
