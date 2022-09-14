@@ -10,6 +10,7 @@ const Departments = () => {
   const [showUpdate, setShowUpdate] = useState<Boolean>(false);
   const [depId, setDepId] = useState<string>('');
   const [success, setSuccess] = useState<Boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>('');
   const toggleSuccess = () => setSuccess(!success);
   const toggleCreate = () => setShowCreate(!showCreate);
   const toggleUpdate = () => setShowUpdate(!showUpdate);
@@ -75,68 +76,82 @@ const Departments = () => {
         console.log(err);
       });
   };
-  const DisplayData = data?.departments?.edges?.map((items: any) => {
-    return (
-      <tr
-        key={items?.node?.id}
-        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-      >
-        <td className="px-6 py-4">{items?.node?.id}</td>
-        <td className="px-6 py-4">{items?.node?.name}</td>
+  const DisplayData = data?.departments?.edges
+    ?.filter((row: any) => row?.node?.name?.match(new RegExp(searchValue, 'i')))
+    ?.map((items: any) => {
+      return (
+        <tr
+          key={items?.node?.id}
+          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+        >
+          <td className="px-6 py-4">{items?.node?.id}</td>
+          <td className="px-6 py-4">{items?.node?.name}</td>
 
-        <td className="px-6 py-4 text-right flex space-x-4">
-          <p
-            onClick={() => {}}
-            className="font-medium text-green-600 dark:text-blue-500 hover:underline"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 cursor-pointer"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-              onClick={() => {
-                setDepId(items?.node?.id);
-                setName(items?.node?.name);
-                toggleUpdate();
-              }}
+          <td className="px-6 py-4 text-right flex space-x-4">
+            <p
+              onClick={() => {}}
+              className="font-medium text-green-600 dark:text-blue-500 hover:underline"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-              />
-            </svg>
-          </p>
-          <p className="text-red-600 cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-              onClick={() => {
-                setDepId(items?.node?.id);
-                toggleSuccess();
-              }}
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </p>
-        </td>
-      </tr>
-    );
-  });
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 cursor-pointer"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                onClick={() => {
+                  setDepId(items?.node?.id);
+                  setName(items?.node?.name);
+                  toggleUpdate();
+                }}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </p>
+            <p className="text-red-600 cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                onClick={() => {
+                  setDepId(items?.node?.id);
+                  toggleSuccess();
+                }}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
+            </p>
+          </td>
+        </tr>
+      );
+    });
   return (
     <div className="text-red-500 p-10">
       <div className="flex flex-col mt-24 space-y-6">
-        <div className="grid  xl:w-96">
+        <div className="flex justify-between items-center ">
+          <div className="flex items-center space-x-2">
+            <input
+              type="text"
+              name="description"
+              id="desc"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="bg-gray-50 flex-1 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-[20rem] p-2.5  "
+              placeholder="Search Employee By Name..."
+              required
+            />
+          </div>
           <div className="input-group  relative    ">
             <button
               onClick={() => {

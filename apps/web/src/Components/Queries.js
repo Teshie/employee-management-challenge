@@ -15,3 +15,33 @@ export const DEPARTMENTS = gql`
     }
   }
 `;
+export const EMPLOYEES = gql`
+  query {
+    employees(page: { page: 0, size: 0 }) {
+      totalCount
+      edges {
+        node {
+          id
+          firstName
+          lastName
+          gender
+          phoneNo
+          email
+          dateOfBirth
+          country
+          region
+          city
+          subCity
+          woreda
+          zone
+          kebele
+          houseNo
+          departmentId
+        }
+      }
+      pageInfo {
+        totalPages
+      }
+    }
+  }
+`;
