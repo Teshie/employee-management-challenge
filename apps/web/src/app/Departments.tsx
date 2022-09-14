@@ -86,7 +86,15 @@ const Departments = () => {
         >
           <td className="px-6 py-4">{items?.node?.id}</td>
           <td className="px-6 py-4">{items?.node?.name}</td>
-
+          <td className="px-6 py-3">
+            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              {items?.node?.employees?.map((x: any) => (
+                <option>
+                  {x.firstName} {x.lasttName}
+                </option>
+              ))}
+            </select>
+          </td>
           <td className="px-6 py-4 text-right flex space-x-4">
             <p
               onClick={() => {}}
@@ -219,6 +227,9 @@ const Departments = () => {
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Department Name
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Employees Name
                     </th>
 
                     <th scope="col" className="px-6 py-3">

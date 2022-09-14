@@ -10,6 +10,11 @@ export const DEPARTMENTS = gql`
         node {
           id
           name
+          employees {
+            id
+            firstName
+            lastName
+          }
         }
       }
     }
